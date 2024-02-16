@@ -1,6 +1,6 @@
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript
+[Nest](https://github.com/nestjs/nest) framework TypeScript\
 [Prisma](https://www.prisma.io/) Prisma
 
 ## Installation
