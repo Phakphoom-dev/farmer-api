@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { RoleRepository } from './role.repository';
-import type { Role } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class RoleService {
-  constructor(private roleRepository: RoleRepository) {}
+  constructor(private prismaService: PrismaService) {}
 
-  async findRole(params: Role) {
-    return this.roleRepository.findRole(params);
+  async findRole(params: Prisma.RoleWhereInput) {
+    return this.prismaService.role.findFirst({
+      where: params,
+    });
   }
 }
