@@ -4,7 +4,9 @@ import { CreateSaleTransactionDto } from './dto/create-sale-transaction.dto';
 import { GetUser } from '../decorators/user/get-user.decorator';
 import type { User } from '@prisma/client';
 import { SaleTransactionService } from './sale-transaction.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Sale Transaction')
 @UseGuards(JwtAuthGuard)
 @Controller('sale-transaction')
 export class SaleTransactionController {

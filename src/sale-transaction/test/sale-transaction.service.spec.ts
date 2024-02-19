@@ -2,12 +2,11 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { Test } from '@nestjs/testing';
 import type { SaleTransaction, User } from '@prisma/client';
 import { SaleTransactionService } from '../sale-transaction.service';
-import { SaleTransactionRepository } from '../sale-transaction.repository';
 
 describe('SaleTransactionService', () => {
   let saleTransactionService: SaleTransactionService;
-  let getTransactions: jest.Mock;
-  let createTransaction: jest.Mock;
+  let findManyMock: jest.Mock;
+  let createMock: jest.Mock;
   const mockUser: User = {
     id: 3,
     username: 'username',
@@ -20,18 +19,17 @@ describe('SaleTransactionService', () => {
   };
 
   beforeEach(async () => {
-    getTransactions = jest.fn();
-    createTransaction = jest.fn();
+    findManyMock = jest.fn();
+    createMock = jest.fn();
     const moduleRef = await Test.createTestingModule({
       providers: [
         SaleTransactionService,
-        SaleTransactionRepository,
         {
           provide: PrismaService,
           useValue: {
             saleTransaction: {
-              findMany: getTransactions,
-              create: createTransaction,
+              findMany: findManyMock,
+              create: createMock,
             },
           },
         },
@@ -59,7 +57,7 @@ describe('SaleTransactionService', () => {
           amount: 10,
           userId: 3,
         };
-        getTransactions.mockResolvedValue(saleTransaction);
+        findManyMock.mockResolvedValue(saleTransaction);
       });
 
       it('should return the sale transactions', async () => {
@@ -72,7 +70,7 @@ describe('SaleTransactionService', () => {
 
     describe('and the getTransactions method is return empty value', () => {
       beforeEach(() => {
-        getTransactions.mockResolvedValue([]);
+        findManyMock.mockResolvedValue([]);
       });
 
       it('should throw return empty arrays', async () => {
@@ -96,7 +94,7 @@ describe('SaleTransactionService', () => {
           amount: 10,
           userId: 3,
         };
-        createTransaction.mockResolvedValue(saleTransaction);
+        createMock.mockResolvedValue(saleTransaction);
       });
 
       it('should create success and return the created sale transaction', async () => {
