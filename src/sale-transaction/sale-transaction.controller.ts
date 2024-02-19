@@ -1,7 +1,7 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+import { Body, Controller, Post, UseGuards, Get } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { CreateSaleTransactionDto } from './dto/create-sale-transaction.dto';
-import { GetUser } from 'src/decorators/user/get-user.decorator';
+import { GetUser } from '../decorators/user/get-user.decorator';
 import type { User } from '@prisma/client';
 import { SaleTransactionService } from './sale-transaction.service';
 
@@ -10,11 +10,18 @@ import { SaleTransactionService } from './sale-transaction.service';
 export class SaleTransactionController {
   constructor(private saleTransactionService: SaleTransactionService) {}
 
-  @Post('')
-  async registerFarmer(
+  @Post()
+  async createTransaction(
     @GetUser() user: User,
     @Body() createDto: CreateSaleTransactionDto,
   ) {
-    return this.saleTransactionService.createTransaction(user, createDto);
+    return await this.saleTransactionService.createTransaction(user, createDto);
+  }
+
+  @Get()
+  async getTransactions(@GetUser() user: User) {
+    return await this.saleTransactionService.getTransactions({
+      userId: user.id,
+    });
   }
 }

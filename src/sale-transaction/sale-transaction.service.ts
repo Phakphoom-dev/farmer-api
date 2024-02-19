@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateSaleTransactionDto } from './dto/create-sale-transaction.dto';
 import { SaleTransactionRepository } from './sale-transaction.repository';
 import type { SaleTransaction, User } from '@prisma/client';
+import { RecordType } from 'src/types';
 
 @Injectable()
 export class SaleTransactionService {
@@ -11,9 +12,13 @@ export class SaleTransactionService {
     user: User,
     createDto: CreateSaleTransactionDto,
   ): Promise<SaleTransaction> {
-    return this.saleTransactionRepository.createSaleTransaction(
+    return await this.saleTransactionRepository.createSaleTransaction(
       user,
       createDto,
     );
+  }
+
+  async getTransactions(filters: RecordType) {
+    return await this.saleTransactionRepository.getTransactions(filters);
   }
 }

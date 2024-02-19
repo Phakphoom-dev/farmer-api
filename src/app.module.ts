@@ -7,6 +7,8 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoleModule } from './role/role.module';
 import { SaleTransactionModule } from './sale-transaction/sale-transaction.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TransformInterceptor } from './interceptors/transform.interceptor';
 
 @Module({
   imports: [
@@ -18,6 +20,12 @@ import { SaleTransactionModule } from './sale-transaction/sale-transaction.modul
     SaleTransactionModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+  ],
 })
 export class AppModule {}
