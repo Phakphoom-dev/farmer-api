@@ -38,3 +38,13 @@ model SaleTransaction {
   userId      Int
   user        User   @relation(fields: [userId], references: [id])
 }
+
+model GoodAgriculturalPractice {
+  id          Int    @id @default(autoincrement())
+  description String
+}
+
+model GoodManufacturingPractice {
+  id          Int    @id @default(autoincrement())
+  description String
+}
