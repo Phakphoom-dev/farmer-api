@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSaleTransactionDto } from './dto/create-sale-transaction.dto';
 import type { SaleTransaction, User } from '@prisma/client';
-import { RecordType } from '../types';
+import { RecordType } from '../types/recordType';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()

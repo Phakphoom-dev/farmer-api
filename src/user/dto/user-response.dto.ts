@@ -1,24 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { CreatedResponse } from '../../types/swagger';
 
-export class UserDto {
+export class UserData {
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
   username: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
   password: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
   firstname: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
   lastname: string;
+}
+
+export class UserResponse {
+  @ApiProperty({
+    type: CreatedResponse,
+  })
+  data: CreatedResponse;
 }

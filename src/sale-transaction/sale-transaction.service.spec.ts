@@ -1,7 +1,7 @@
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Test } from '@nestjs/testing';
 import type { SaleTransaction, User } from '@prisma/client';
-import { SaleTransactionService } from '../sale-transaction.service';
+import { SaleTransactionService } from './sale-transaction.service';
 
 describe('SaleTransactionService', () => {
   let saleTransactionService: SaleTransactionService;
