@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from './stretegy/local.stretegy';
 import { JwtStrategy } from './stretegy/jwt.stretegy';
 import { ConfigModule } from '@nestjs/config';
+import { FabricNetworkConfigService } from '../fabric-network-config/fabric-network-config.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Module({
   imports: [
@@ -17,7 +19,13 @@ import { ConfigModule } from '@nestjs/config';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtStrategy,
+    PrismaService,
+    FabricNetworkConfigService,
+  ],
   controllers: [AuthController],
 })
 export class AuthModule {}

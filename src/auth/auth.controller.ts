@@ -5,6 +5,8 @@ import {
   HttpStatus,
   Post,
   UseGuards,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local-auth.guard';
@@ -25,5 +27,12 @@ export class AuthController {
   @Post('login')
   signIn(@Request() req) {
     return this.authService.login(req.user);
+  }
+
+  @Post('register/:userId')
+  async register(@Param('userId', ParseIntPipe) userId) {
+    await this.authService.register(userId);
+
+    return { message: 'Register user success' };
   }
 }

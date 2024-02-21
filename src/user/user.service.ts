@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, type User } from '@prisma/client';
+import * as argon from 'argon2';
 import { RoleEnum } from '../auth/enum/role.enum';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserDto } from './dto/user.dto';
 import { RoleService } from '../role/role.service';
-import * as argon from 'argon2';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {

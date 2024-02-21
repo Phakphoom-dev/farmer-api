@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseGuards, Get } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { CreateSaleTransactionDto } from './dto/create-sale-transaction.dto';
-import { GetUser } from '../decorators/user/get-user.decorator';
+import { GetUser } from '../common/decorators/user/get-user.decorator';
 import type { User } from '@prisma/client';
 import { SaleTransactionService } from './sale-transaction.service';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';

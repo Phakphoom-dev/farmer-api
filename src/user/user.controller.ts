@@ -11,11 +11,11 @@ import {
 import { RoleEnum } from '../auth/enum/role.enum';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { RoleGuard } from '../auth/guard/role.guard';
-import { Roles } from '../decorators/role/roles.decorator';
+import { Roles } from '../common/decorators/role/roles.decorator';
 import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { GetUser } from '../decorators/user/get-user.decorator';
+import { GetUser } from '../common/decorators/user/get-user.decorator';
 import type { User } from '@prisma/client';
 import { UserResponse } from './dto/user-response.dto';
 
