@@ -62,8 +62,17 @@ export class AuthService {
       this.fabricNetworkConfigService.walletPath,
     );
 
-    // in a real application this would be done on an administrative flow, and only once
-    await enrollAdmin(caClient, wallet, this.fabricNetworkConfigService.mspId);
+    // Check to see if we've already enrolled the user
+    const adminIdentity = await wallet.get('admin');
+
+    if (!adminIdentity) {
+      // in a real application this would be done on an administrative flow, and only once
+      await enrollAdmin(
+        caClient,
+        wallet,
+        this.fabricNetworkConfigService.mspId,
+      );
+    }
 
     // in a real application this would be done only when a new user was required to be added
     // and would be part of an administrative flow

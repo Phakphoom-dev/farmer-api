@@ -13,7 +13,11 @@ import { Wallets, X509Identity } from 'fabric-network';
 
 @Injectable()
 export class FabricNetworkService {
-  constructor(private networkConfigService: FabricNetworkConfigService) {}
+  private utf8Decoder: TextDecoder;
+
+  constructor(private networkConfigService: FabricNetworkConfigService) {
+    this.utf8Decoder = new TextDecoder();
+  }
 
   public async displayInputParameters(): Promise<void> {
     console.log(`channelName:       ${this.networkConfigService.channelName}`);
@@ -40,16 +44,14 @@ export class FabricNetworkService {
   async createAsset(contract: Contract, user: any): Promise<void> {
     const { id, firstname, lastname, username } = user;
 
-    console.log(
-      '\n--> Submit Transaction: CreateAsset, creates new asset with ID, Color, Size, Owner and AppraisedValue arguments',
-    );
+    console.log('\n--> Submit Transaction: CreateAsset');
 
     await contract.submitTransaction(
       'CreateAsset',
       id,
+      username,
       firstname,
       lastname,
-      username,
     );
 
     console.log('*** Transaction committed successfully');
@@ -147,5 +149,21 @@ export class FabricNetworkService {
     await contract.submitTransaction('InitLedger');
 
     console.log('*** Transaction committed successfully');
+  }
+
+  /**
+   * Evaluate a transaction to query ledger state.
+   */
+  async getAllAssets(contract: Contract): Promise<any> {
+    console.log(
+      '\n--> Evaluate Transaction: GetAllAssets, function returns all the current assets on the ledger',
+    );
+
+    const resultBytes = await contract.evaluateTransaction('GetAllAssets');
+
+    const resultJson = this.utf8Decoder.decode(resultBytes);
+    const result = JSON.parse(resultJson);
+
+    return result;
   }
 }
