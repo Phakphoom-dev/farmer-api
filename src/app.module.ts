@@ -7,8 +7,6 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoleModule } from './role/role.module';
 import { SaleTransactionModule } from './sale-transaction/sale-transaction.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { DataImportModule } from './data-import/data-import.module';
 import { FabricNetworkModule } from './fabric-network/fabric-network.module';
 import { FabricNetworkConfigModule } from './fabric-network-config/fabric-network-config.module';
@@ -29,12 +27,6 @@ import { FabricNetworkConfigModule } from './fabric-network-config/fabric-networ
     FabricNetworkConfigModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: TransformInterceptor,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}
