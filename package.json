@@ -41,7 +41,8 @@
     "passport-local": "^1.0.0",
     "prisma": "^5.9.1",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
