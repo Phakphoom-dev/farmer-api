@@ -1,0 +1,71 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Farmer API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: phakphoom.k@zeabix.com
+  description: >
+    This is an Farmer API to demonstrate features of the OpenAPI
+servers:
+  - url: http://localhost:3000
+paths:
+  /health-check:
+    get:
+      tags:
+        - Default
+      summary: Get server running status
+      security:
+        - token: []
+      description: |
+        get server health check status is server running correctly
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/healthCheck'
+                example: '3/1/2024, 4:53:54 PM: [App Controller] Initializing check application health function.'
+        '404':
+          description: Path not found
+          $ref: '#/components/responses/notFoundResponse'
+
+components:
+  responses:
+    'notFoundResponse':
+      description: 404 Response
+      content:
+        application/json:
+          schema:
+            type: object
+            description: 404 Response
+            properties:
+              message:
+                type: string
+                description: error message of response
+                format: uri
+                example: 'Cannot GET {{path}}'
+              error:
+                type: string
+                description: description of endpoint error
+                format: uri
+                example: 'Not Found'
+              statusCode:
+                type: number
+                example: 404
+  securitySchemes:
+    token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    healthCheck:
+      properties:
+        status:
+          description: Health check status
+          type: string
+          example: '3/1/2024, 4:53:54 PM: [App Controller] Initializing check application health function.'
